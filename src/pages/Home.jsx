@@ -61,7 +61,7 @@ const Home = () => {
                 handle="aimancodes"
                 status="Online"
                 contactText="Contact Me"
-                avatarUrl="https://via.placeholder.com/400"
+                avatarUrl="/avatar.jpg"
                 showUserInfo={true}
                 enableTilt={true}
                 enableMobileTilt={false}
