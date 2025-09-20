@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import SmoothScrollLink from '../components/SmoothScrollLink';
 import GradientBlinds from '../components/GradientBlinds';
+import ProfileCard from '../components/ProfileCard';
 
 const Home = () => {
   return (
@@ -53,23 +54,20 @@ const Home = () => {
                 </SmoothScrollLink>
               </div>
             </div>
-            <div className="flex justify-center fade-in">
-              <div className="relative group">
-                <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-500/50 shadow-2xl transition-all duration-500 group-hover:border-blue-400 group-hover:shadow-blue-500/20">
-                  <img
-                    src="https://via.placeholder.com/400"
-                    alt="Profile"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="absolute -bottom-4 -right-4 bg-white text-black px-6 py-3 rounded-lg shadow-lg transition-all duration-300 group-hover:bg-gray-200 group-hover:shadow-xl">
-                  <span className="font-semibold">5+ Years</span>
-                  <span className="block text-sm">Experience</span>
-                </div>
-                {/* Decorative elements */}
-                <div className="absolute -top-4 -left-4 w-16 h-16 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 animate-pulse-slow"></div>
-                <div className="absolute -bottom-8 -left-8 w-12 h-12 rounded-full bg-purple-500/20 backdrop-blur-sm border border-purple-400/30 animate-pulse-slow"></div>
-              </div>
+            <div className="flex justify-center fade-in pointer-events-auto">
+              <ProfileCard
+                name="Aiman"
+                title="Full Stack Developer & UI/UX Designer"
+                handle="aimancodes"
+                status="Online"
+                contactText="Contact Me"
+                avatarUrl="https://via.placeholder.com/400"
+                showUserInfo={true}
+                enableTilt={true}
+                enableMobileTilt={false}
+                onContactClick={() => console.log('Contact clicked')}
+                className="absolute right-8 md:right-16 top-1 bottom-7"
+              />
             </div>
           </div>
         </div>
