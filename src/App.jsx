@@ -32,10 +32,10 @@ function AppContent() {
         activeHref={location.pathname}
         className="custom-nav"
         ease="power2.easeOut"
-        baseColor="#ffffff"           // White text for good contrast
-        pillColor="rgba(255, 255, 255, 0.1)"  // Very subtle white with transparency
-        hoveredPillTextColor="#ffffff" // Keep white text on hover
-        pillTextColor="#ffffff"       // White text in pills
+        baseColor="rgba(255, 255, 255, 0)"           
+        pillColor="#ffffff)"  
+        hoveredPillTextColor="#ffffff" 
+        pillTextColor="silver"       
       />
 
       <div style={{position: 'fixed', top: '10px', right: '10px', background: 'rgba(0,0,0,0.7)', color: 'white', padding: '5px', zIndex: 9999, fontSize: '12px'}}>
