@@ -7,8 +7,8 @@ const Home = () => {
     <div className="bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
       <section className="min-h-screen flex items-center pt-16 pb-20 md:pt-24 md:pb-32 bg-black text-white relative overflow-hidden">
-        <GradientBlinds 
-          className="absolute inset-0 z-20"
+        <GradientBlinds
+          className="absolute inset-0 z-10"
           gradientColors={['#FF9FFC', '#5227FF']}
           angle={21}
           noise={0.0}
@@ -23,7 +23,7 @@ const Home = () => {
           mixBlendMode="lighten"
         />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pointer-events-none">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="fade-in-up">
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight">
@@ -38,7 +38,7 @@ const Home = () => {
               <div className="flex flex-wrap gap-4">
                 <SmoothScrollLink
                   to="/projects"
-                  className="btn btn-primary group"
+                  className="btn btn-primary group pointer-events-auto"
                 >
                   View My Work
                   <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +47,7 @@ const Home = () => {
                 </SmoothScrollLink>
                 <SmoothScrollLink
                   to="/resume"
-                  className="btn btn-outline"
+                  className="btn btn-outline pointer-events-auto"
                 >
                   Download Resume
                 </SmoothScrollLink>
