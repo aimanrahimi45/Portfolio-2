@@ -1,16 +1,27 @@
 import { Link } from 'react-router-dom';
 import SmoothScrollLink from '../components/SmoothScrollLink';
+import GradientBlinds from '../components/GradientBlinds';
 
 const Home = () => {
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
       <section className="min-h-screen flex items-center pt-16 pb-20 md:pt-24 md:pb-32 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
-        </div>
+        <GradientBlinds 
+          className="absolute inset-0 z-20"
+          gradientColors={['#FF9FFC', '#5227FF']}
+          angle={20}
+          noise={0.2}
+          blindCount={12}
+          blindMinWidth={50}
+          mouseDampening={0.15}
+          spotlightRadius={0.3}
+          spotlightSoftness={1}
+          spotlightOpacity={1}
+          distortAmount={23}
+          shineDirection="left"
+          mixBlendMode="lighten"
+        />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -152,12 +163,6 @@ const Home = () => {
 
       {/* Call to Action Section */}
       <section className="py-20 md:py-28 bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/3 left-1/4 w-72 h-72 bg-purple-500/5 rounded-full blur-3xl"></div>
-        </div>
-        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center fade-in-up">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Let's Work Together</h2>
