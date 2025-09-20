@@ -26,16 +26,16 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pointer-events-none">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="fade-in-up">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight">
-                Hello, I'm <span className="text-white">Alex Johnson</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight opacity-0 animate-fly-in-left">
+                Hello, I'm <span className="text-white opacity-0 animate-fly-in-right" style={{animationDelay: '0.3s'}}>Aiman</span>
               </h1>
-              <h2 className="text-xl md:text-2xl font-light mb-8 text-gray-100 max-w-lg">
+              <h2 className="text-xl md:text-2xl font-light mb-8 text-gray-100 max-w-lg opacity-0 animate-fly-in-left" style={{animationDelay: '0.6s'}}>
                 Full Stack Developer & UI/UX Designer
               </h2>
-              <p className="text-lg md:text-xl mb-10 text-gray-200 max-w-xl leading-relaxed">
+              <p className="text-lg md:text-xl mb-10 text-gray-200 max-w-xl leading-relaxed opacity-0 animate-fly-in-up" style={{animationDelay: '0.9s'}}>
                 I create elegant solutions through code and design, specializing in modern web applications that provide exceptional user experiences.
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 opacity-0 animate-fly-in-up" style={{animationDelay: '1.2s'}}>
                 <SmoothScrollLink
                   to="/projects"
                   className="btn btn-primary group pointer-events-auto"
