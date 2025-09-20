@@ -6,19 +6,19 @@ const Home = () => {
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center pt-16 pb-20 md:pt-24 md:pb-32 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
+      <section className="min-h-screen flex items-center pt-16 pb-20 md:pt-24 md:pb-32 bg-black text-white relative overflow-hidden">
         <GradientBlinds 
           className="absolute inset-0 z-20"
           gradientColors={['#FF9FFC', '#5227FF']}
-          angle={20}
-          noise={0.2}
-          blindCount={12}
+          angle={21}
+          noise={0.0}
+          blindCount={16}
           blindMinWidth={50}
           mouseDampening={0.15}
           spotlightRadius={0.3}
           spotlightSoftness={1}
-          spotlightOpacity={1}
-          distortAmount={23}
+          spotlightOpacity={0.6}
+          distortAmount={0}
           shineDirection="left"
           mixBlendMode="lighten"
         />
@@ -27,12 +27,12 @@ const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="fade-in-up">
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight">
-                Hello, I'm <span className="text-blue-400">Alex Johnson</span>
+                Hello, I'm <span className="text-white">Alex Johnson</span>
               </h1>
-              <h2 className="text-xl md:text-2xl font-light mb-8 text-gray-300 max-w-lg">
+              <h2 className="text-xl md:text-2xl font-light mb-8 text-gray-100 max-w-lg">
                 Full Stack Developer & UI/UX Designer
               </h2>
-              <p className="text-lg md:text-xl mb-10 text-gray-400 max-w-xl leading-relaxed">
+              <p className="text-lg md:text-xl mb-10 text-gray-200 max-w-xl leading-relaxed">
                 I create elegant solutions through code and design, specializing in modern web applications that provide exceptional user experiences.
               </p>
               <div className="flex flex-wrap gap-4">
@@ -62,7 +62,7 @@ const Home = () => {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
-                <div className="absolute -bottom-4 -right-4 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg transition-all duration-300 group-hover:bg-blue-500 group-hover:shadow-xl">
+                <div className="absolute -bottom-4 -right-4 bg-white text-black px-6 py-3 rounded-lg shadow-lg transition-all duration-300 group-hover:bg-gray-200 group-hover:shadow-xl">
                   <span className="font-semibold">5+ Years</span>
                   <span className="block text-sm">Experience</span>
                 </div>
@@ -76,7 +76,7 @@ const Home = () => {
         
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-slow">
-          <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
         </div>
