@@ -5,21 +5,27 @@ const Resume = () => {
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 md:py-28 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">My Resume</h1>
+      <section className="pt-24 pb-20 md:pt-32 md:pb-28 bg-gradient-to-br from-gray-900 to-gray-800 text-white relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+          <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center fade-in-up">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">My Resume</h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
               A comprehensive overview of my professional experience, education, skills, and achievements.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <SmoothScrollLink
                 to="/contact"
-                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition duration-300 ease-in-out transform hover:-translate-y-1"
+                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl"
               >
                 Contact Me
               </SmoothScrollLink>
-              <button className="px-8 py-3 bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white font-medium rounded-md transition duration-300 ease-in-out">
+              <button className="px-8 py-3 bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white font-medium rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
                 Download Resume
               </button>
             </div>
@@ -30,13 +36,13 @@ const Resume = () => {
       {/* Professional Summary Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 fade-in-up">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Professional Summary</h2>
-            <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+            <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
           </div>
           
-          <div className="max-w-4xl mx-auto bg-gray-50 p-8 rounded-lg shadow-sm">
-            <p className="text-lg text-gray-700 mb-6">
+          <div className="max-w-4xl mx-auto card p-8 lg:p-10 fade-in-left">
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
               Results-driven Full Stack Developer with 5+ years of experience designing, developing, and deploying high-quality web applications. 
               Adept at both front-end and back-end development, with a strong focus on creating intuitive user experiences and scalable solutions.
             </p>
@@ -54,13 +60,15 @@ const Resume = () => {
                   'Performance Optimization',
                   'Cross-functional Team Leadership'
                 ].map((qualification, index) => (
-                  <div key={index} className="flex items-start">
+                  <div key={index} className="flex items-start group">
                     <div className="flex-shrink-0 mt-1">
-                      <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
+                      <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors duration-300">
+                        <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                      </div>
                     </div>
-                    <span className="ml-2 text-gray-700">{qualification}</span>
+                    <span className="ml-3 text-gray-700">{qualification}</span>
                   </div>
                 ))}
               </div>
@@ -72,14 +80,14 @@ const Resume = () => {
       {/* Work Experience Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 fade-in-up">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Work Experience</h2>
-            <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+            <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
           </div>
           
           <div className="max-w-4xl mx-auto space-y-12">
             {/* Experience 1 */}
-            <div className="bg-white p-8 rounded-lg shadow-sm border-l-4 border-blue-600">
+            <div className="card p-8 lg:p-10 border-l-4 border-blue-600 fade-in-left hover:shadow-lg transition-shadow duration-300">
               <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">Senior Full Stack Developer</h3>
@@ -90,21 +98,21 @@ const Resume = () => {
                   <p className="text-gray-600">San Francisco, CA</p>
                 </div>
               </div>
-              <ul className="space-y-2 text-gray-700">
+              <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                   </svg>
                   <span>Led a team of 5 developers in creating a customer management system that increased client retention by 25%</span>
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                   </svg>
                   <span>Optimized application performance, reducing page load times by 40% through code refactoring and implementation of best practices</span>
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                   </svg>
                   <span>Implemented CI/CD pipelines using Jenkins and Docker, reducing deployment time by 60%</span>
@@ -113,7 +121,7 @@ const Resume = () => {
             </div>
             
             {/* Experience 2 */}
-            <div className="bg-white p-8 rounded-lg shadow-sm border-l-4 border-blue-600">
+            <div className="card p-8 lg:p-10 border-l-4 border-blue-600 fade-in-left hover:shadow-lg transition-shadow duration-300">
               <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">Full Stack Developer</h3>
@@ -124,21 +132,21 @@ const Resume = () => {
                   <p className="text-gray-600">New York, NY</p>
                 </div>
               </div>
-              <ul className="space-y-2 text-gray-700">
+              <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                   </svg>
                   <span>Developed and maintained multiple web applications using React, Node.js, and MongoDB</span>
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                   </svg>
                   <span>Collaborated with UX/UI designers to implement responsive designs that improved user engagement by 35%</span>
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                   </svg>
                   <span>Participated in code reviews and mentored junior developers on best practices and coding standards</span>
@@ -147,7 +155,7 @@ const Resume = () => {
             </div>
             
             {/* Experience 3 */}
-            <div className="bg-white p-8 rounded-lg shadow-sm border-l-4 border-blue-600">
+            <div className="card p-8 lg:p-10 border-l-4 border-blue-600 fade-in-left hover:shadow-lg transition-shadow duration-300">
               <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">Junior Web Developer</h3>
@@ -158,21 +166,21 @@ const Resume = () => {
                   <p className="text-gray-600">Boston, MA</p>
                 </div>
               </div>
-              <ul className="space-y-2 text-gray-700">
+              <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                   </svg>
                   <span>Built responsive websites using HTML, CSS, JavaScript, and jQuery for various clients</span>
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                   </svg>
                   <span>Assisted in the development of e-commerce platforms using PHP and MySQL</span>
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                   </svg>
                   <span>Performed website maintenance, updates, and troubleshooting to ensure optimal performance</span>
@@ -186,14 +194,14 @@ const Resume = () => {
       {/* Education Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 fade-in-up">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Education</h2>
-            <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+            <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
           </div>
           
           <div className="max-w-4xl mx-auto space-y-8">
             {/* Education 1 */}
-            <div className="bg-gray-50 p-8 rounded-lg shadow-sm">
+            <div className="card p-8 lg:p-10 fade-in-right hover:shadow-lg transition-shadow duration-300">
               <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">Master of Science in Computer Science</h3>
@@ -206,14 +214,14 @@ const Resume = () => {
               </div>
               <div className="mt-4">
                 <h4 className="font-semibold text-gray-900 mb-2">Relevant Coursework:</h4>
-                <p className="text-gray-700">
+                <p className="text-gray-700 leading-relaxed">
                   Advanced Algorithms, Web Technologies, Software Engineering, Database Systems, Human-Computer Interaction, Machine Learning
                 </p>
               </div>
             </div>
             
             {/* Education 2 */}
-            <div className="bg-gray-50 p-8 rounded-lg shadow-sm">
+            <div className="card p-8 lg:p-10 fade-in-right hover:shadow-lg transition-shadow duration-300">
               <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">Bachelor of Science in Software Engineering</h3>
@@ -226,7 +234,7 @@ const Resume = () => {
               </div>
               <div className="mt-4">
                 <h4 className="font-semibold text-gray-900 mb-2">Relevant Coursework:</h4>
-                <p className="text-gray-700">
+                <p className="text-gray-700 leading-relaxed">
                   Data Structures and Algorithms, Object-Oriented Programming, Web Development, Software Design, Computer Networks, Operating Systems
                 </p>
               </div>
@@ -238,9 +246,9 @@ const Resume = () => {
       {/* Skills Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 fade-in-up">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Skills</h2>
-            <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+            <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
           </div>
           
           <div className="max-w-4xl mx-auto">
@@ -250,7 +258,7 @@ const Resume = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Programming Languages */}
-                <div>
+                <div className="card p-6 fade-in-left">
                   <h4 className="font-medium text-gray-900 mb-4">Programming Languages</h4>
                   <div className="space-y-4">
                     {[
@@ -267,7 +275,7 @@ const Resume = () => {
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2.5">
                           <div 
-                            className="bg-blue-600 h-2.5 rounded-full" 
+                            className="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full" 
                             style={{ width: `${skill.level}%` }}
                           ></div>
                         </div>
@@ -277,7 +285,7 @@ const Resume = () => {
                 </div>
                 
                 {/* Frameworks & Libraries */}
-                <div>
+                <div className="card p-6 fade-in-left">
                   <h4 className="font-medium text-gray-900 mb-4">Frameworks & Libraries</h4>
                   <div className="space-y-4">
                     {[
@@ -294,7 +302,7 @@ const Resume = () => {
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2.5">
                           <div 
-                            className="bg-blue-600 h-2.5 rounded-full" 
+                            className="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full" 
                             style={{ width: `${skill.level}%` }}
                           ></div>
                         </div>
@@ -304,7 +312,7 @@ const Resume = () => {
                 </div>
                 
                 {/* Tools & Technologies */}
-                <div>
+                <div className="card p-6 fade-in-right">
                   <h4 className="font-medium text-gray-900 mb-4">Tools & Technologies</h4>
                   <div className="space-y-4">
                     {[
@@ -321,7 +329,7 @@ const Resume = () => {
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2.5">
                           <div 
-                            className="bg-blue-600 h-2.5 rounded-full" 
+                            className="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full" 
                             style={{ width: `${skill.level}%` }}
                           ></div>
                         </div>
@@ -331,7 +339,7 @@ const Resume = () => {
                 </div>
                 
                 {/* Design & Other */}
-                <div>
+                <div className="card p-6 fade-in-right">
                   <h4 className="font-medium text-gray-900 mb-4">Design & Other</h4>
                   <div className="space-y-4">
                     {[
@@ -348,7 +356,7 @@ const Resume = () => {
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2.5">
                           <div 
-                            className="bg-blue-600 h-2.5 rounded-full" 
+                            className="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full" 
                             style={{ width: `${skill.level}%` }}
                           ></div>
                         </div>
@@ -368,7 +376,7 @@ const Resume = () => {
                   { name: 'Spanish', proficiency: 'Professional Working' },
                   { name: 'French', proficiency: 'Limited Working' }
                 ].map((language, index) => (
-                  <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
+                  <div key={index} className="card p-6 fade-in-up hover:shadow-lg transition-shadow duration-300">
                     <h4 className="font-medium text-gray-900 mb-2">{language.name}</h4>
                     <p className="text-gray-600">{language.proficiency}</p>
                   </div>
@@ -382,9 +390,9 @@ const Resume = () => {
       {/* Achievements & Certifications Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 fade-in-up">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Achievements & Certifications</h2>
-            <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+            <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
           </div>
           
           <div className="max-w-4xl mx-auto">
@@ -410,7 +418,7 @@ const Resume = () => {
                       description: 'First place in a 48-hour hackathon for creating a sustainable tech solution.'
                     }
                   ].map((achievement, index) => (
-                    <div key={index} className="bg-gray-50 p-6 rounded-lg shadow-sm">
+                    <div key={index} className="card p-6 fade-in-left hover:shadow-lg transition-shadow duration-300">
                       <h4 className="font-bold text-gray-900 mb-1">{achievement.title}</h4>
                       <p className="text-blue-600 font-medium mb-2">{achievement.organization}</p>
                       <p className="text-gray-700">{achievement.description}</p>
@@ -443,7 +451,7 @@ const Resume = () => {
                       description: 'Certification for developing applications using MongoDB.'
                     }
                   ].map((certification, index) => (
-                    <div key={index} className="bg-gray-50 p-6 rounded-lg shadow-sm">
+                    <div key={index} className="card p-6 fade-in-right hover:shadow-lg transition-shadow duration-300">
                       <h4 className="font-bold text-gray-900 mb-1">{certification.title}</h4>
                       <p className="text-blue-600 font-medium mb-1">{certification.organization}</p>
                       <p className="text-gray-600 text-sm mb-2">{certification.date}</p>
