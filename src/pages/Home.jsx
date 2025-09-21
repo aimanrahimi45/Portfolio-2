@@ -1,9 +1,205 @@
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SmoothScrollLink from '../components/SmoothScrollLink';
 import GradientBlinds from '../components/GradientBlinds';
 import ProfileCard from '../components/ProfileCard';
+import AnimatedProgressBar from '../components/AnimatedProgressBar';
+import CircularProgressIndicator from '../components/CircularProgressIndicator';
+import ModernHighlightCard from '../components/ModernHighlightCard';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
+  const aboutSectionRef = useRef(null);
+  const highlightsRef = useRef(null);
+
+  useEffect(() => {
+    // Initialize ScrollTrigger animations
+    const initAnimations = () => {
+      // About section animations
+      if (aboutSectionRef.current) {
+        // Fade in animation for the about section title
+        gsap.fromTo(
+          aboutSectionRef.current.querySelector('h2'),
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            scrollTrigger: {
+              trigger: aboutSectionRef.current.querySelector('h2'),
+              start: 'top 100%',
+              end: 'bottom 60%',
+              scrub: 0.5,
+              toggleActions: 'play none none reverse',
+              invalidateOnRefresh: true,
+              anticipatePin: 1
+            }
+
+          }
+        );
+
+        // Fade in animation for the about section content
+        gsap.fromTo(
+          aboutSectionRef.current.querySelectorAll('.fade-in-left, .fade-in-right'),
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.2,
+            scrollTrigger: {
+              trigger: aboutSectionRef.current,
+              start: 'top 70%',
+              toggleActions: 'play none none reverse'
+            }
+          }
+        );
+      }
+
+      // Professional highlights animations
+      if (highlightsRef.current) {
+        // Staggered animation for highlight cards
+        gsap.fromTo(
+          highlightsRef.current.querySelectorAll('.space-y-6 > div'),
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            stagger: {
+              each: 0.15,
+              from: "start"
+            },
+            scrollTrigger: {
+              trigger: highlightsRef.current,
+              start: 'top 100%',
+              end: 'bottom 100%',
+              scrub: 0,
+              toggleActions: 'play none none reverse',
+              invalidateOnRefresh: true,
+              anticipatePin: 1
+            }
+          }
+        );
+
+        // Parallax effect for the professional highlights section
+        gsap.to(highlightsRef.current, {
+          yPercent: -10,
+          ease: "none",
+          scrollTrigger: {
+            trigger: highlightsRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+
+        // Individual card animations with enhanced effects
+        const highlightCards = highlightsRef.current.querySelectorAll('.space-y-6 > div');
+        highlightCards.forEach((card, index) => {
+          // Add hover effect preparation
+          card.style.transformOrigin = 'center bottom';
+          
+          // Create entrance animation
+          gsap.fromTo(card, 
+            { 
+              opacity: 0, 
+              y: 50,
+              rotationX: 15,
+              transformPerspective: 1000
+            },
+            {
+              opacity: 1,
+              y: 0,
+              rotationX: 0,
+              duration: 0.8,
+              delay: index * 0.1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 85%',
+                end: 'bottom 80%',
+                scrub: 0,
+                toggleActions: 'play none none reverse',
+                invalidateOnRefresh: true
+              }
+            }
+          );
+          
+          // Add subtle scale animation on scroll
+          gsap.to(card, {
+            scale: 1.02,
+            ease: "none",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 50%",
+              end: "bottom 50%",
+              scrub: true
+            }
+          });
+        });
+
+        // Create a progress indicator for the highlights section
+        const highlightsProgress = document.createElement('div');
+        highlightsProgress.className = 'highlights-progress';
+        highlightsProgress.style.cssText = `
+          position: absolute;
+          top: -2px;
+          left: 0;
+          height: 2px;
+          width: 0%;
+          background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+          z-index: 10;
+          transition: width 0.1s ease;
+        `;
+        if (highlightsRef.current.querySelector('h3')) {
+          highlightsRef.current.querySelector('h3').style.position = 'relative';
+          highlightsRef.current.querySelector('h3').appendChild(highlightsProgress);
+        }
+
+        // Update progress indicator based on scroll position
+        ScrollTrigger.create({
+          trigger: highlightsRef.current,
+          start: "top center",
+          end: "bottom center",
+          onUpdate: (self) => {
+            highlightsProgress.style.width = `${self.progress * 100}%`;
+          }
+        });
+
+        // Add scroll-based opacity changes for the highlights section
+        gsap.to(highlightsRef.current, {
+          opacity: 1,
+          scrollTrigger: {
+            trigger: highlightsRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            scrub: true,
+            onUpdate: (self) => {
+              // Calculate opacity based on scroll position
+              const opacity = 1 - Math.abs(self.progress - 0.5) * 0.2;
+              gsap.set(highlightsRef.current, { opacity });
+            }
+          }
+        });
+      }
+    };
+
+    // Initialize animations
+    initAnimations();
+
+    // Cleanup function
+    return () => {
+      // Kill all ScrollTrigger instances
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
@@ -81,7 +277,7 @@ const Home = () => {
       </section>
 
       {/* About Section */}
-      <section className="py-20 md:py-28 bg-white">
+      <section ref={aboutSectionRef} className="py-20 md:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 fade-in-up">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">About Me</h2>
@@ -98,61 +294,61 @@ const Home = () => {
               </p>
               
               <div className="mb-8">
-                <h3 className="text-xl font-semibold text-gray-900 mb-6">Key Skills</h3>
-                <div className="flex flex-wrap gap-3">
-                  {['React', 'JavaScript', 'TypeScript', 'Node.js', 'Express', 'MongoDB', 'HTML/CSS', 'Tailwind CSS', 'UI/UX Design', 'Responsive Design'].map((skill) => (
-                    <span key={skill} className="px-4 py-2 bg-gray-100 text-gray-800 rounded-full text-sm font-medium hover:bg-blue-100 hover:text-blue-700 transition-colors duration-300 shadow-sm">
-                      {skill}
-                    </span>
-                  ))}
+                <h3 className="text-xl font-semibold text-gray-900 mb-6">Technical Skills</h3>
+                <div className="space-y-4">
+                  <AnimatedProgressBar skill="React" level={90} color="from-blue-500 to-blue-600" />
+                  <AnimatedProgressBar skill="JavaScript" level={95} color="from-yellow-500 to-yellow-600" />
+                  <AnimatedProgressBar skill="TypeScript" level={85} color="from-blue-600 to-blue-700" />
+                  <AnimatedProgressBar skill="Node.js" level={85} color="from-green-500 to-green-600" />
+                  <AnimatedProgressBar skill="UI/UX Design" level={80} color="from-purple-500 to-purple-600" />
+                </div>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-6">Key Competencies</h3>
+                <div className="grid grid-cols-3 gap-6">
+                  <CircularProgressIndicator skill="Frontend" level={90} color="#3b82f6" />
+                  <CircularProgressIndicator skill="Backend" level={85} color="#10b981" />
+                  <CircularProgressIndicator skill="Design" level={80} color="#8b5cf6" />
                 </div>
               </div>
             </div>
             
-            <div className="card fade-in-right">
+            <div ref={highlightsRef} className="fade-in-right">
               <h3 className="text-xl font-semibold text-gray-900 mb-6">Professional Highlights</h3>
               <div className="space-y-6">
-                <div className="flex items-start group">
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors duration-300">
-                      <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300">Industry Recognition</h4>
-                    <p className="text-gray-600">Recipient of the "Developer of the Year" award in 2022 for innovative solutions and exceptional code quality.</p>
-                  </div>
-                </div>
+                <ModernHighlightCard
+                  icon={
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  }
+                  title="Industry Recognition"
+                  description="Recipient of the 'Developer of the Year' award in 2022 for innovative solutions and exceptional code quality."
+                  color="blue"
+                />
                 
-                <div className="flex items-start group">
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors duration-300">
-                      <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300">Project Success</h4>
-                    <p className="text-gray-600">Successfully delivered 50+ projects for clients across various industries, maintaining a 98% client satisfaction rate.</p>
-                  </div>
-                </div>
+                <ModernHighlightCard
+                  icon={
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  }
+                  title="Project Success"
+                  description="Successfully delivered 50+ projects for clients across various industries, maintaining a 98% client satisfaction rate."
+                  color="purple"
+                />
                 
-                <div className="flex items-start group">
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors duration-300">
-                      <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300">Technical Expertise</h4>
-                    <p className="text-gray-600">Specialized in creating responsive, accessible, and performant web applications using modern technologies and best practices.</p>
-                  </div>
-                </div>
+                <ModernHighlightCard
+                  icon={
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  }
+                  title="Technical Expertise"
+                  description="Specialized in creating responsive, accessible, and performant web applications using modern technologies and best practices."
+                  color="teal"
+                />
               </div>
             </div>
           </div>

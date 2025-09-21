@@ -33,6 +33,7 @@
   transform: translate3d(0, 0, 0.1px);
   position: relative;
   touch-action: none;
+  will-change: transform, opacity;
 }
 
 .pc-card-wrapper::before {
@@ -91,6 +92,7 @@
     radial-gradient(100% 100% at 50% 50%, #00c1ffff 1%, #073aff00 76%),
     conic-gradient(from 124deg at 50% 50%, #c137ffff 0%, #07c6ffff 40%, #07c6ffff 60%, #c137ffff 100%);
   overflow: hidden;
+  will-change: transform, opacity;
 }
 
 .pc-card:hover,
@@ -133,6 +135,7 @@
   --angle: -45deg;
   transform: translate3d(0, 0, 1px);
   overflow: hidden;
+  will-change: transform, opacity;
   z-index: 3;
   background: transparent;
   background-size: cover;
@@ -240,6 +243,7 @@
 .pc-glare {
   transform: translate3d(0, 0, 1.1px);
   overflow: hidden;
+  will-change: transform, opacity;
   background-image: radial-gradient(
     farthest-corner circle at var(--pointer-x) var(--pointer-y),
     hsl(248, 25%, 80%) 12%,
@@ -253,6 +257,7 @@
 .pc-avatar-content {
   mix-blend-mode: screen;
   overflow: hidden;
+  will-change: transform, opacity;
 }
 
 .pc-avatar-content .avatar {
@@ -283,6 +288,7 @@
 .pc-user-info {
   position: absolute;
   bottom: 20px;
+  will-change: transform, opacity;
   left: 20px;
   right: 20px;
   z-index: 2;
@@ -308,6 +314,7 @@
   height: 48px;
   border-radius: 50%;
   overflow: hidden;
+  will-change: transform, opacity;
   border: 1px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
 }
@@ -360,6 +367,7 @@
 .pc-content {
   max-height: 100%;
   overflow: hidden;
+  will-change: transform, opacity;
   text-align: center;
   position: relative;
   transform: translate3d(
@@ -382,6 +390,7 @@
 .pc-details h3 {
   font-weight: 600;
   margin: 0;
+  will-change: transform, opacity;
   font-size: min(5svh, 3em);
   margin: 0;
   background-image: linear-gradient(to bottom, #fff, #6f6fbe);
@@ -394,6 +403,7 @@
 .pc-details p {
   font-weight: 600;
   position: relative;
+  will-change: transform, opacity;
   top: -12px;
   white-space: nowrap;
   font-size: 16px;

@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useEffect, useRef, useCallback, useMemo, useState } from 'react';
+import { gsap } from 'gsap';
+import { useLocation } from 'react-router-dom';
 import './ProfileCard.css';
 
 interface ProfileCardProps {
@@ -34,6 +36,15 @@ const ANIMATION_CONFIG = {
   INITIAL_Y_OFFSET: 60,
   DEVICE_BETA_OFFSET: 20
 } as const;
+const GSAP_ANIMATION_CONFIG = {
+  INITIAL_DELAY: 0.5, // Delay before starting animation
+  WRAPPER_DURATION: 0.8, // Duration for wrapper animation
+  CARD_DURATION: 1.0, // Duration for card scale/rotation
+  TEXT_STAGGER: 0.1, // Stagger between text elements
+  TEXT_DURATION: 0.6, // Duration for text animations
+  USER_INFO_DURATION: 0.8, // Duration for user info animation
+  EASE: "power3.out" // Easing function for animations
+} as const;
 
 const clamp = (value: number, min = 0, max = 100): number => Math.min(Math.max(value, min), max);
 
@@ -66,6 +77,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  const [shouldAnimate, setShouldAnimate] = useState(true);
 
   const animationHandlers = useMemo(() => {
     if (!enableTilt) return null;
@@ -218,16 +231,16 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     const deviceOrientationHandler = handleDeviceOrientation as EventListener;
 
     const handleClick = () => {
-      if (!enableMobileTilt || location.protocol !== 'https:') return;
-      if (typeof (window.DeviceMotionEvent as any).requestPermission === 'function') {
-        (window.DeviceMotionEvent as any)
+      if (!enableMobileTilt || window.location.protocol !== 'https:') return;
+      if (typeof (window.DeviceMotionEvent as unknown as { requestPermission: () => Promise<string> }).requestPermission === 'function') {
+        (window.DeviceMotionEvent as unknown as { requestPermission: () => Promise<string> })
           .requestPermission()
           .then((state: string) => {
             if (state === 'granted') {
               window.addEventListener('deviceorientation', deviceOrientationHandler);
             }
           })
-          .catch((err: any) => console.error(err));
+          .catch((err: Error) => console.error(err));
       } else {
         window.addEventListener('deviceorientation', deviceOrientationHandler);
       }
@@ -261,6 +274,61 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     handlePointerLeave,
     handleDeviceOrientation
   ]);
+  // GSAP entrance animation
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (!wrapRef.current || !cardRef.current || !shouldAnimate) return;
+      
+      // Set initial states
+      gsap.set(wrapRef.current, { opacity: 0, y: 50 });
+      gsap.set(cardRef.current, { scale: 0.9, rotationY: 15 });
+      
+      // Create timeline for sequenced animations
+      const tl = gsap.timeline({ defaults: { ease: GSAP_ANIMATION_CONFIG.EASE } });
+      
+      tl.to(wrapRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: GSAP_ANIMATION_CONFIG.WRAPPER_DURATION,
+        delay: GSAP_ANIMATION_CONFIG.INITIAL_DELAY
+      })
+      .to(cardRef.current, {
+        scale: 1,
+        rotationY: 0,
+        duration: GSAP_ANIMATION_CONFIG.CARD_DURATION,
+        ease: "back.out(1.7)"
+      }, "-=0.4")
+      .from(".pc-details h3, .pc-details p", {
+        y: 20,
+        opacity: 0,
+        stagger: GSAP_ANIMATION_CONFIG.TEXT_STAGGER,
+        duration: GSAP_ANIMATION_CONFIG.TEXT_DURATION
+      }, "-=0.6")
+      .from(".pc-user-info", {
+        y: 30,
+        opacity: 0,
+        duration: GSAP_ANIMATION_CONFIG.USER_INFO_DURATION
+      }, "-=0.4")
+      .eventCallback("onComplete", () => {
+        // Reset animation flag after animation completes
+        setShouldAnimate(false);
+      });
+    }, wrapRef); // Scope all animations to the wrapper element
+    
+    return () => ctx.revert(); // Cleanup when component unmounts
+  }, [shouldAnimate, location.pathname]); // Trigger on route changes
+
+  // Animation trigger mechanism for both initial load and navigation
+  useEffect(() => {
+    setShouldAnimate(true);
+    
+    // Reset animation flag after animation completes
+    const timer = setTimeout(() => {
+      setShouldAnimate(false);
+    }, 3000);
+    
+    return () => clearTimeout(timer);
+  }, [location.pathname]); // Dependency on route changes
 
   const cardStyle = useMemo(
     () =>
