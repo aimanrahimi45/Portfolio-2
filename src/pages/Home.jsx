@@ -62,30 +62,8 @@ const Home = () => {
 
       // Professional highlights animations
       if (highlightsRef.current) {
-        // Staggered animation for highlight cards
-        gsap.fromTo(
-          highlightsRef.current.querySelectorAll('.space-y-6 > div'),
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out",
-            stagger: {
-              each: 0.15,
-              from: "start"
-            },
-            scrollTrigger: {
-              trigger: highlightsRef.current,
-              start: 'top 100%',
-              end: 'bottom 100%',
-              scrub: 0,
-              toggleActions: 'play none none reverse',
-              invalidateOnRefresh: true,
-              anticipatePin: 1
-            }
-          }
-        );
+        // Remove conflicting opacity animation for the entire section
+        // (this conflicts with individual card animations)
 
         // Parallax effect for the professional highlights section
         gsap.to(highlightsRef.current, {
@@ -99,37 +77,36 @@ const Home = () => {
           }
         });
 
-        // Individual card animations with enhanced effects
+        // Unified scrub-based animation for highlight cards with proper stagger
         const highlightCards = highlightsRef.current.querySelectorAll('.space-y-6 > div');
+        
+        // Set initial state for all cards
+        gsap.set(highlightCards, {
+          opacity: 0,
+          y: 50,
+          rotationX: 15
+        });
+
+        // Create scrub-based animation timeline for smooth scroll behavior
         highlightCards.forEach((card, index) => {
           // Add hover effect preparation
           card.style.transformOrigin = 'center bottom';
           
-          // Create entrance animation
-          gsap.fromTo(card, 
-            { 
-              opacity: 0, 
-              y: 50,
-              rotationX: 15,
-              transformPerspective: 1000
-            },
-            {
-              opacity: 1,
-              y: 0,
-              rotationX: 0,
-              duration: 0.8,
-              delay: index * 0.1,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: card,
-                start: 'top 85%',
-                end: 'bottom 80%',
-                scrub: 0,
-                toggleActions: 'play none none reverse',
-                invalidateOnRefresh: true
-              }
+          // Create scrub-based animation for smooth fade-in/fade-out
+          gsap.to(card, {
+            opacity: 1,
+            y: 0,
+            rotationX: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 85%',
+              end: 'bottom 80%',
+              scrub: true,
+              invalidateOnRefresh: true
             }
-          );
+          });
           
           // Add subtle scale animation on scroll
           gsap.to(card, {
@@ -169,22 +146,6 @@ const Home = () => {
           end: "bottom center",
           onUpdate: (self) => {
             highlightsProgress.style.width = `${self.progress * 100}%`;
-          }
-        });
-
-        // Add scroll-based opacity changes for the highlights section
-        gsap.to(highlightsRef.current, {
-          opacity: 1,
-          scrollTrigger: {
-            trigger: highlightsRef.current,
-            start: "top 80%",
-            end: "bottom 20%",
-            scrub: true,
-            onUpdate: (self) => {
-              // Calculate opacity based on scroll position
-              const opacity = 1 - Math.abs(self.progress - 0.5) * 0.2;
-              gsap.set(highlightsRef.current, { opacity });
-            }
           }
         });
       }
